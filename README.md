@@ -16,8 +16,6 @@ A fully operational PWA for managing a budget.
   - [Local Installation (only if executing on local server/pc)](#local-installation-only-if-executing-on-local-serverpc)
   - [Usage for deployed Installation](#usage-for-deployed-installation)
   - [Usage for local Installation](#usage-for-local-installation)
-    - [npm start](#npm-start)
-    - [npm run start](#npm-run-start)
   - [Questions](#questions)
 
 ## Local Installation (only if executing on local server/pc)
@@ -39,11 +37,11 @@ The application interface should appear as "Your total is: $xxxx" in your browse
 
 To execute the application locally, connect to the root diretory in the cloned repository and type:
 
-### npm start  
+**npm start** 
   
 or type
 
-### npm run start
+**npm run start**
   
 The application interface will be available in your browser as:
 
