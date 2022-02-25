@@ -22,7 +22,7 @@ A fully operational PWA for managing a budget.
 
 To install locally, clone this repository to your local environment. This is a node application, so node must be installed. mongoDB must also be installed locally. For mongoDB documentation and installation instructions see https://docs.mongodb.com/manual/introduction/. If you need to install node, check out this link https://nodejs.org/en/download/. Once mongoDB and node (and npm) are installed, attach to the repository root directory and update npm dependencies with the following command:
 
-* npm install compression express mongoose morgan  
+**npm install compression express mongoose morgan**  
   
 
 ## Usage for deployed Installation
@@ -55,5 +55,5 @@ The application must remain running in the terminal until your done with it, at 
 
 Any questions, please contact Mark Dale.
 
-My email address is: msdaledad@gmail.com
+My email address is: msdaledad@gmail.com  
 My github profile is https://github.com/msdale
