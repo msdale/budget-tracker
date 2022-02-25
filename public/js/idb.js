@@ -1,53 +1,41 @@
-// create variable to hold db connection
-let db;
-// establish a connection to IndexedDB database called 'budget_tracker' and set it to version 1
-const request = indexedDB.open('budget_tracker', 1);
+let db; // db connection
+const request = indexedDB.open('budget_tracker', 1); // for offline persistence
 
-// this event will emit if the database version changes (nonexistant to version 1, v1 to v2, etc.)
+// updates on db changes
 request.onupgradeneeded = function (event) {
-  // save a reference to the database 
   const db = event.target.result;
-  // create an object store (table) called `transaction`, set it to have an auto incrementing primary key of sorts 
   db.createObjectStore('transaction', { autoIncrement: true });
 };
 
-// upon a successful 
+// upon a successful db request
 request.onsuccess = function (event) {
-  // when db is successfully created with its object store (from onupgradedneeded event above) or simply established a connection, save reference to db in global variable
   db = event.target.result;
 
   // check if app is online, if yes run uploadTransaction() function to send all local db data to api
   if (navigator.onLine) {
-    // we haven't created this yet, but we will soon, so let's comment it out for now
-    // uploadTransaction();
+    uploadTransaction();
   }
 };
 
+// on request error
 request.onerror = function (event) {
-  // log error here
   console.log(event.target.errorCode);
 };
 
-// This function will be executed if we attempt to submit a transaction and there's no internet connection
+// no internet connection
 function saveRecord(record) {
-  // open a new transaction with the database with read and write permissions 
   const transaction = db.transaction(['transaction'], 'readwrite');
 
-  // access the object store for `transaction`
   const transactionObjectStore = transaction.objectStore('transaction');
 
-  // add record to your store with add method
   transactionObjectStore.add(record);
 }
 
 function uploadTransaction() {
-  // open a transaction on your db
   const transaction = db.transaction(['transaction'], 'readwrite');
 
-  // access your object store
   const transactionObjectStore = transaction.objectStore('transaction');
 
-  // get all records from store and set to a variable
   const getAll = transactionObjectStore.getAll();
 
   // upon a successful .getAll() execution, run this function
@@ -67,9 +55,7 @@ function uploadTransaction() {
           if (serverResponse.message) {
             throw new Error(serverResponse);
           }
-          // open one more transaction
           const transaction = db.transaction(['transaction'], 'readwrite');
-          // access the transaction object store
           let transactionsObjectStore = transaction.objectStore('transaction');
           // clear all transactions in your store
           transactionsObjectStore.clear();
@@ -84,5 +70,5 @@ function uploadTransaction() {
 
 };
 
-// listen for app coming 
+// listen for app coming online
 window.addEventListener('online', uploadTransaction);
